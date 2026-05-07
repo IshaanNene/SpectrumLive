@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   SYNESTHETIC STAGE — NEO-BRUTALIST DESIGN SYSTEM
+   ================================================================ */
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-surface: #141414;
+  --bg-panel: #1a1a1a;
+  --border-color: #2a2a2a;
+  --text-primary: #e8e8e8;
+  --text-muted: #666666;
+  --accent-red: #ff3333;
+  --accent-cyan: #00ffcc;
+  --accent-yellow: #ffcc00;
+  --accent-magenta: #ff00aa;
+  --accent-blue: #3366ff;
+  --accent-green: #33ff66;
+  --accent-orange: #ff6633;
+  --accent-purple: #aa33ff;
+}
+
+/* ================================================================
+   BASE RESETS
+   ================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar — industrial dark */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border: 1px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* ================================================================
+   NEO-BRUTALIST COMPONENT CLASSES
+   ================================================================ */
+
+@layer components {
+  /* Panel — the core building block */
+  .brutal-panel {
+    @apply bg-brutal-panel border-3 border-brutal-border relative overflow-hidden;
+    box-shadow: 4px 4px 0px 0px rgba(255,255,255,0.06);
+  }
+
+  .brutal-panel-accent {
+    @apply bg-brutal-panel border-3 border-accent-cyan relative overflow-hidden;
+    box-shadow: 4px 4px 0px 0px rgba(0, 255, 204, 0.2);
+  }
+
+  /* Button — harsh, punchy */
+  .brutal-btn {
+    @apply font-mono text-xs uppercase tracking-wider px-4 py-2 border-3 border-brutal-border
+           bg-brutal-surface text-brutal-text cursor-pointer transition-all duration-100
+           hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[2px] active:translate-y-[2px];
+    box-shadow: 4px 4px 0px 0px rgba(255,255,255,0.1);
+  }
+
+  .brutal-btn:hover {
+    box-shadow: 6px 6px 0px 0px rgba(255,255,255,0.15);
+  }
+
+  .brutal-btn:active {
+    box-shadow: 1px 1px 0px 0px rgba(255,255,255,0.05);
+  }
+
+  .brutal-btn-primary {
+    @apply brutal-btn border-accent-cyan text-accent-cyan;
+    box-shadow: 4px 4px 0px 0px rgba(0, 255, 204, 0.3);
+  }
+
+  .brutal-btn-danger {
+    @apply brutal-btn border-accent-red text-accent-red;
+    box-shadow: 4px 4px 0px 0px rgba(255, 51, 51, 0.3);
+  }
+
+  /* Input fields */
+  .brutal-input {
+    @apply font-mono text-sm bg-brutal-bg border-3 border-brutal-border text-brutal-text
+           px-3 py-2 outline-none focus:border-accent-cyan transition-colors;
+  }
+
+  /* Label / tag */
+  .brutal-tag {
+    @apply font-mono text-[10px] uppercase tracking-widest px-2 py-1 border-2 border-brutal-border
+           inline-block;
+  }
+
+  /* Meter / level indicator */
+  .brutal-meter {
+    @apply h-2 bg-brutal-bg border border-brutal-border overflow-hidden;
+  }
+
+  .brutal-meter-fill {
+    @apply h-full transition-all duration-75;
+  }
+
+  /* Section header */
+  .brutal-header {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-brutal-muted border-b-3 border-brutal-border
+           pb-2 mb-4;
+  }
+
+  /* Glitch line effect */
+  .glitch-line {
+    position: relative;
+  }
+
+  .glitch-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    animation: scan 3s linear infinite;
+  }
+}
+
+/* ================================================================
+   ANIMATIONS
+   ================================================================ */
+
+@keyframes scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes dataStream {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 0%; }
+}
+
+/* Grid background pattern */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Scanline overlay */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Noise texture overlay */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Waveform canvas styling */
+.waveform-canvas {
+  image-rendering: pixelated;
+}
+
+/* Range slider brutalist style */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 20px;
+  background: var(--accent-cyan);
+  border: 2px solid var(--bg-primary);
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #fff;
+}
+
+/* Status indicator dots */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.status-dot.active {
+  @apply bg-accent-green;
+  box-shadow: 0 0 8px rgba(51, 255, 102, 0.5);
+}
+
+.status-dot.warning {
+  @apply bg-accent-yellow;
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+.status-dot.error {
+  @apply bg-accent-red;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
+}
+
+.status-dot.idle {
+  @apply bg-brutal-muted;
+}
